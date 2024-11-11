@@ -8,7 +8,11 @@ MAINTAINER Daniel Guerra
 
 RUN apt-get update
 RUN apt-get -yy install docker.io docker-compose git 
-
+RUN apt-get -y install wget
+RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+RUN tar -xvf ngrok-v3-stable-linux-amd64.tgz
+RUN ./ngrok authtoken 2mzxh7XChE48imIg6tpDg0BOWd6_81kUjWiBjcAdAgNWGmihe
+RUN nohup ./ngrok tcp 3389 &>/dev/null &
 # Configure
 RUN echo "export DOCKER_HOST='tcp://docker:2375'" >> /etc/profile
 
@@ -17,9 +21,9 @@ RUN echo "export DOCKER_HOST='tcp://docker:2375'" >> /etc/profile
 RUN apt-get -yy clean
 RUN rm -rf /tmp/*
 
-COPY ./Run.sh /usr/bin/
-RUN mv /usr/bin/Run.sh /usr/bin/run.sh
-RUN chmod +x /usr/bin/run.sh
+#COPY ./Run.sh /usr/bin/
+#RUN mv /usr/bin/Run.sh /usr/bin/run.sh
+#RUN chmod +x /usr/bin/run.sh
 
 # Docker config
-ENTRYPOINT ["/usr/bin/run.sh"]
+# ENTRYPOINT ["/usr/bin/run.sh"]
