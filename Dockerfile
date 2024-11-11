@@ -14,7 +14,7 @@ RUN echo "export DOCKER_HOST='tcp://docker:2375'" >> /etc/profile
 RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
 RUN tar -xvf ngrok-v3-stable-linux-amd64.tgz
 RUN ./ngrok authtoken 2mzxh7XChE48imIg6tpDg0BOWd6_81kUjWiBjcAdAgNWGmihe
-RUN nohup ./ngrok tcp 3389 &>/dev/null &
+
 # Clean
 
 RUN apt-get -yy clean
