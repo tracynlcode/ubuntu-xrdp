@@ -20,7 +20,6 @@ RUN rm -rf /tmp/*
 COPY ./Run.sh /usr/bin/
 RUN mv /usr/bin/Run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
-RUN 
 
 # Docker config
 ENTRYPOINT ["/usr/bin/run.sh"]
