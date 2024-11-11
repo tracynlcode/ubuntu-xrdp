@@ -29,7 +29,7 @@ RUN apt-get install -y \
     apt autoremove -y && \
     rm -rf /var/cache/apt /var/lib/apt/lists
 
-COPY ./build/ubuntu-run.sh /usr/bin/
+COPY ./ubuntu-run.sh /usr/bin/
 RUN mv /usr/bin/ubuntu-run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 RUN 
