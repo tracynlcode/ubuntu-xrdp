@@ -1,39 +1,26 @@
 # https://github.com/danchitnis/container-xrdp
+# https://github.com/danielguerra69/ubuntu-xrdp-docker
 
-FROM ubuntu:latest
+FROM danielguerra/ubuntu-xrdp:20.04
+MAINTAINER Daniel Guerra
 
-ENV DEBIAN_FRONTEND=noninteractive
+# Add packages
 
-RUN apt-get -y update 
-RUN apt-get -y upgrade
+RUN apt-get update
+RUN apt-get -yy install docker.io docker-compose git 
 
-RUN apt-get install -y \
-    xfce4 \
-    xfce4-clipman-plugin \
-    xfce4-cpugraph-plugin \
-    xfce4-netload-plugin \
-    xfce4-screenshooter \
-    xfce4-taskmanager \
-    xfce4-terminal \
-    xfce4-xkb-plugin 
+# Configure
+RUN echo "export DOCKER_HOST='tcp://docker:2375'" >> /etc/profile
 
-RUN apt-get install -y \
-    dbus-x11 
+# Clean
 
-RUN apt-get install -y \
-    sudo \
-    wget \
-    xorgxrdp \
-    xrdp && \
-    apt remove -y light-locker xscreensaver && \
-    apt autoremove -y && \
-    rm -rf /var/cache/apt /var/lib/apt/lists
+RUN apt-get -yy clean
+RUN rm -rf /tmp/*
 
-COPY ./ubuntu-run.sh /usr/bin/
-RUN mv /usr/bin/ubuntu-run.sh /usr/bin/run.sh
+COPY ./Run.sh /usr/bin/
+RUN mv /usr/bin/Run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 RUN 
 
 # Docker config
-EXPOSE 3389
 ENTRYPOINT ["/usr/bin/run.sh"]
