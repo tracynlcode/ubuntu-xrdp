@@ -22,6 +22,6 @@ COPY . .
 RUN docker build -t image .
 
 RUN docker run -d --link shared-docker:docker --shm-size 1g --name uxrdp-dind --hostname docker-terminal -p 3389:3389 -p 2222:22 danielguerra/ubuntu-xrdp-docker
-
-#RUN docker run -d -p 80:80 image
-#EXPOSE WEBSITE http://localhost:80
+RUN docker run -it --rm -d -p 80:80 --name web nginx
+#RUN docker run -d -p 80:22 image
+EXPOSE WEBSITE http://localhost:80
